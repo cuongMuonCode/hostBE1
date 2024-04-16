@@ -67,7 +67,10 @@ private learningRepository learningRepository;
        return;}
        double realmark=stu.getProgress().getCourseGpa().get(a);
        while(realmark>100)realmark-=100;
-       if(mark<realmark)    return;
+       if(mark<realmark&&realmark!=11) {  stu.getProgress().getCourseGpa().set(a,realmark);
+        learningProgress tem2=stu.getProgress();
+        learningRepository.deleteLearningProgressByStudentId(studentId);
+           learningRepository.save(tem2);return;}
        stu.getProgress().getCourseGpa().set(a,mark);
         learningProgress tem2=stu.getProgress();
     learningRepository.deleteLearningProgressByStudentId(studentId);

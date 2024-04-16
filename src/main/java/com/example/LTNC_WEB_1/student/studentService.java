@@ -94,6 +94,7 @@ public class studentService {
         learningProgress tmp=learningRepository.findLearningProgressByStudentId(id);
         TKB time= TKBService.getTKB(id);
         if(temp.getHaveTeacher()==false){System.out.println("Lop nay chua co giao vien");return;}
+        if(temp.getStudentList().size()==temp.getMaxStudent()){System.out.println("Lop da du si so");return;}
         boolean firsttime=true;
 //bien bool
         for(int i=0;i<learningRepository.findLearningProgressByStudentId(id).getCourseGpa().size();i++){
@@ -102,14 +103,16 @@ public class studentService {
                 //diem >100 tuc dang hoc return
                 if(tmp.getCourseGpa().get(i)>=100.0){System.out.println("Mon nay dang hoc");return;}
                 //trung lich hoc return
-                if(!(time.getCa1().get(temp.getDay()-1).equals("null"))&&temp.getShift()==1){System.out.println("Trung lich");return;}
+                if(!(time.getCa1().get(temp.getDay()-1).equals("null"))&&temp.getShift()==1){System.out.println("Trung lichhh");return;}
                 if(!(time.getCa2().get(temp.getDay()-1).equals("null"))&&temp.getShift()==2){System.out.println("Trung lich");return;}
-                if(tmp.getCourseGpa().get(i)<100.0)tmp.getCourseGpa().set(i,100.0+tmp.getCourseGpa().get(i));
+                if(tmp.getCourseGpa().get(i)<100.0){tmp.getCourseGpa().set(i,100.0+tmp.getCourseGpa().get(i));
+                    learningRepository.deleteLearningProgressByStudentId(id);
+                    learningRepository.save(tmp);}
             }
         }
         if(firsttime){
             tmp.getCourseId().add(temp.getCourseId());
-            tmp.getCourseGpa().add(11.0);//diem 11 hoc lan dau, chua co diem
+            tmp.getCourseGpa().add(11.0);//diem 11 hoc lan dau hoac chua qua mon, chua co diem
             //add mon moi
             learningRepository.deleteLearningProgressByStudentId(id);
             learningRepository.save(tmp);
