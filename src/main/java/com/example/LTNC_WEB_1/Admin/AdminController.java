@@ -118,6 +118,10 @@ public class AdminController {
         //  System.out.println("vo day");
         return AdminService.createClassRoom(classId,courseId,day,shift);
     }
+    @GetMapping("/{courseId}/{classId}/{day}/{shirt}/newclass")
+    public classRoom dhd(@PathVariable String courseId,@PathVariable String classId,@PathVariable Integer day,@PathVariable Integer shirt){
+        return AdminService.createClassRoom(classId,courseId,day,shirt);
+    }
     //them hoc sinh vao lop hoc
 //    @DeleteMapping("/deleted")
 //    public void deleteTeach()  {

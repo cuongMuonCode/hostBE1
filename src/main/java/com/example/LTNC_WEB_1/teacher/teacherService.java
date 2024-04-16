@@ -51,6 +51,7 @@ private learningRepository learningRepository;
     public void SetMark(String courseId,String classId,Integer studentId,Integer teacherId,Double mark){
        classRoom temp=  classRoomService.getClassAndCourseId(courseId,classId);
        teacher tempTeacher=teacherRepository.findTeacherByInformation(teacherId);
+       if(mark>10)return;
        boolean stu_in_class=false;
        boolean tea_in_class=false;
        for(int i=0;i<temp.getStudentList().size();i++){
@@ -64,6 +65,9 @@ private learningRepository learningRepository;
        for(int i=0;;i++){if(stu.getProgress().getCourseId().get(i).equals(courseId)){a=i;break;}}
        if(a==-1){System.out.println("khong tim ra mon nay");
        return;}
+       double realmark=stu.getProgress().getCourseGpa().get(a);
+       while(realmark>100)realmark-=100;
+       if(mark<realmark)    return;
        stu.getProgress().getCourseGpa().set(a,mark);
         learningProgress tem2=stu.getProgress();
     learningRepository.deleteLearningProgressByStudentId(studentId);

@@ -44,7 +44,9 @@ public class studentService {
         for(int i=0;i<tmp.getCourseGpa().size();i++){
             if(tmp.getCourseGpa().get(i)==11)continue;// diem 11 thi chua co diem
             Integer credits = courseRepository.findCourseByCourseId(tmp.getCourseId().get(i)).getCredits();
-            sum = sum+ tmp.getCourseGpa().get(i)*credits;
+            double a=tmp.getCourseGpa().get(i);
+            while(a>=100){a-=100;}
+                    sum = sum+ a*credits;
             sumCredits +=credits;
         }
         return sum/sumCredits;
