@@ -1,4 +1,5 @@
 package com.example.LTNC_WEB_1.teacher;
+import com.example.LTNC_WEB_1.Login.login;
 import com.example.LTNC_WEB_1.information.information;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +18,5 @@ public class teacher {
     private List<String> idClass;
     private List<String> idCourse;
     private List<String> diploma;
-
+    private login loginTeacher;
 }

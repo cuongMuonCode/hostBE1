@@ -1,5 +1,7 @@
 package com.example.LTNC_WEB_1.Admin;
 
+import com.example.LTNC_WEB_1.Login.login;
+import com.example.LTNC_WEB_1.Login.loginRepository;
 import com.example.LTNC_WEB_1.classRoom.classRoom;
 import com.example.LTNC_WEB_1.classRoom.classRoomRepository;
 import com.example.LTNC_WEB_1.information.information;
@@ -32,6 +34,9 @@ public class AdminService {
     private studentService studentService;
     @Autowired
     private teacherRepository teacherRepository;
+    @Autowired
+    private loginRepository loginRepository;
+
     public List<classRoom> all(){
         return classRoomRepository.findAll();
     }
@@ -68,15 +73,18 @@ public class AdminService {
         return classRoomRepository.save(newClass);
     }
     //them hoc sinh moi
-    public void createStudent(Integer informationId, String name, String email, String falcuty){
+    public void createStudent(Integer informationId, String name, String email, String falcuty, String password){
         information in4= new information(informationId,name,email,falcuty);
+        login newLogin= new login(informationId,password,1);
         learningProgress newlP= new learningProgress(informationId,null,null);
+
         learningRepository.save(newlP);
         informationRepository.save(in4);
     }
-    public void createTeacher(Integer informationId, String name, String email, String falcuty){
+    public void createTeacher(Integer informationId, String name, String email, String falcuty,  String password){
         information in4= new information(informationId,name,email,falcuty);
-        teacher newTeacher=new teacher(informationId,null,null,null);
+        login newLogin= new login(informationId,password,2);
+        teacher newTeacher=new teacher(informationId,null,null,null,newLogin);
         
         teacherRepository.save(newTeacher);
         informationRepository.save(in4);

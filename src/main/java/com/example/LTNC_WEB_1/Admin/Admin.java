@@ -1,5 +1,6 @@
 package com.example.LTNC_WEB_1.Admin;
 
+import com.example.LTNC_WEB_1.Login.login;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Document(collection = "Admin")
 public class Admin {
-    private String username;
-    private String password;
     private List<Integer> teacherList;
     private List<Integer> studentList;
+    private login loginAdmin;
 }

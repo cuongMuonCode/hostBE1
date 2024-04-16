@@ -49,8 +49,8 @@ public class AdminController {
     }*/
     //tao acc, them hoc sinh
     @PostMapping("/createStudent")
-    public void createStudent(@RequestParam Integer id,@RequestParam String name, @RequestParam String email, @RequestParam String faculty){
-        AdminService.createStudent(id ,name,email,faculty);
+    public void createStudent(@RequestParam Integer id,@RequestParam String name, @RequestParam String email, @RequestParam String faculty,@RequestParam String password){
+        AdminService.createStudent(id ,name,email,faculty,password);
     }
     //xoa hoc sinh
     @DeleteMapping("/deleteStudent/{studentId}")
@@ -83,8 +83,8 @@ public class AdminController {
 //    }
     //tao moi teacher
     @PostMapping("/createTeacher")
-    public void createTeacher(@RequestParam Integer id , @RequestParam String name,@RequestParam String email,@RequestParam String faculty){
-        AdminService.createTeacher(id,name,email,faculty);
+    public void createTeacher(@RequestParam Integer id , @RequestParam String name,@RequestParam String email,@RequestParam String faculty, @RequestParam String password){
+        AdminService.createTeacher(id,name,email,faculty,password);
     }
     //xoa teacher
     @DeleteMapping("/deleteTeacher/{Id}")
