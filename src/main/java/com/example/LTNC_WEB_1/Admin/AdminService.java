@@ -42,12 +42,13 @@ public class AdminService {
     }
     //xoa hoc sinh
     public information deleteStudent(Integer studentId){
-
+        loginRepository.deleteLoginByYourId(studentId);
         learningRepository.deleteLearningProgressByStudentId(studentId);
         return informationRepository.deleteInformationByInformationId(studentId);
     }
     //xoa giao vien
     public information deleteTeacher(Integer Id){
+        loginRepository.deleteLoginByYourId(Id);
         teacherRepository.deleteTeacherByInformation(Id);
         return informationRepository.deleteInformationByInformationId(Id);
     }
@@ -78,6 +79,7 @@ public class AdminService {
         login newLogin= new login(informationId,password,1);
         learningProgress newlP= new learningProgress(informationId,null,null);
 
+        loginRepository.save(newLogin);
         learningRepository.save(newlP);
         informationRepository.save(in4);
     }
@@ -85,7 +87,8 @@ public class AdminService {
         information in4= new information(informationId,name,email,falcuty);
         login newLogin= new login(informationId,password,2);
         teacher newTeacher=new teacher(informationId,null,null,null,newLogin);
-        
+
+        loginRepository.save(newLogin);
         teacherRepository.save(newTeacher);
         informationRepository.save(in4);
     }
