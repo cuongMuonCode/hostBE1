@@ -13,13 +13,8 @@ import java.util.List;
 public class teacherController {
     @Autowired
     private teacherService teacherService;
-    @Autowired
-    private courseService courseService;
 
-    @Autowired
-    private teacherRepository teacherRepository;
-
-    @GetMapping("/get/{teacherId}")
+    @GetMapping("/{teacherId}/getTeacher")
     public teacher getTeacher(@PathVariable Integer teacherId){
         return  teacherService.getTeacherById(teacherId);
     }

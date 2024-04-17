@@ -98,6 +98,10 @@ public class AdminService {
         learningRepository.save(newlP);
         informationRepository.save(in4);
         TKBRepository.save(time);
+
+    }
+    public boolean newsemester(){
+        return true;
     }
     public void createTeacher(Integer informationId, String name, String email, String falcuty,  String password){
         information in4= new information(informationId,name,email,falcuty);
