@@ -90,24 +90,45 @@ public class studentService {
     public classRoom courseRegister(String classId,Integer id ){
         // goi ham liet ke class cua pdt
         classRoom temp=classRoomRepository.findClassRoomByClassId(classId);
-        if(temp==null){System.out.println(classId);System.out.println("Khong co lop nay");return null;}
+        if(temp==null){
+            System.out.println(classId);
+            System.out.println("Khong co lop nay");
+            return null;
+        }
         learningProgress tmp=learningRepository.findLearningProgressByStudentId(id);
         TKB time= TKBService.getTKB(id);
-        if(temp.getHaveTeacher()==false){System.out.println("Lop nay chua co giao vien");return null;}
-        if(temp.getStudentList().size()==temp.getMaxStudent()){System.out.println("Lop da du si so");return null;}
+        if(temp.getHaveTeacher()==false){
+            System.out.println("Lop nay chua co giao vien");
+            return null;
+        }
+        if(temp.getStudentList().size()==temp.getMaxStudent()){
+            System.out.println("Lop da du si so");
+            return null;
+        }
         boolean firsttime=true;
-//bien bool
+        //bien bool
         for(int i=0;i<learningRepository.findLearningProgressByStudentId(id).getCourseGpa().size();i++){
             if(tmp.getCourseId().get(i).equals(temp.getCourseId())){
                 firsttime=false;
                 //diem >100 tuc dang hoc return
-                if(tmp.getCourseGpa().get(i)>=100.0){System.out.println("Mon nay dang hoc");return null;}
+                if(tmp.getCourseGpa().get(i)>=100.0){
+                    System.out.println("Mon nay dang hoc");
+                    return null;
+                }
                 //trung lich hoc return
-                if(!(time.getCa1().get(temp.getDay()-1).equals("null"))&&temp.getShift()==1){System.out.println("Trung lichhh");return null;}
-                if(!(time.getCa2().get(temp.getDay()-1).equals("null"))&&temp.getShift()==2){System.out.println("Trung lich");return null;}
-                if(tmp.getCourseGpa().get(i)<100.0){tmp.getCourseGpa().set(i,100.0+tmp.getCourseGpa().get(i));
+                if(!(time.getCa1().get(temp.getDay()-1).equals("null"))&&temp.getShift()==1){
+                    System.out.println("Trung lichhh");
+                    return null;
+                }
+                if(!(time.getCa2().get(temp.getDay()-1).equals("null"))&&temp.getShift()==2){
+                    System.out.println("Trung lich");
+                    return null;
+                }
+                if(tmp.getCourseGpa().get(i)<100.0){
+                    tmp.getCourseGpa().set(i,100.0+tmp.getCourseGpa().get(i));
                     learningRepository.deleteLearningProgressByStudentId(id);
-                    learningRepository.save(tmp);}
+                    learningRepository.save(tmp);
+                }
             }
         }
         if(firsttime){
@@ -121,29 +142,21 @@ public class studentService {
         classRoomRepository.deleteClassRoomByClassId(classId);
         classRoomRepository.save(temp);
         if(time.getCa1().get(temp.getDay()-1).equals("null")&&temp.getShift()==1){
-// setHaveteacher
-
+            // setHaveteacher
             TKBRepository.deleteTKBByPersonId(id);
             time.getCa1().set(temp.getDay()-1,classId);
             TKBRepository.save(time);
-
-
-        }else
-        if(time.getCa2().get(temp.getDay()-1).equals("null")&&temp.getShift()==2){
-
-
+        }else if(time.getCa2().get(temp.getDay()-1).equals("null")&&temp.getShift()==2){
             TKBRepository.deleteTKBByPersonId(id);
             time.getCa2().set(temp.getDay()-1,classId);
             TKBRepository.save(time);
-
         }
-return temp;
+    return temp;
     }
 
 
     public List<classRoom>showAllClass(){
         return classRoomRepository.findAll();
     }
-
 
 }
