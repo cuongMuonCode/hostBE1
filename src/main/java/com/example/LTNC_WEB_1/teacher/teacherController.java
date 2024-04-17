@@ -30,8 +30,8 @@ public class teacherController {
         return courseService.getCourseById(courseId);
     }*/
 
-    @PutMapping("/{teacherId}/{courseId}/{classId}/{studentId}/setMark")
-    public void setMark(@PathVariable String courseId,@PathVariable String classId,@PathVariable Integer studentId
+    @PutMapping("/{teacherId}/setMark")
+    public void setMark(@RequestParam String courseId,@RequestParam String classId,@RequestParam Integer studentId
                         ,@PathVariable Integer teacherId,@RequestParam Double mark){
         teacherService.SetMark(courseId,classId,studentId,teacherId,mark);
     }
@@ -42,22 +42,22 @@ public class teacherController {
 //        return teacherService.PrintStudent(classId,courseId,teacherId);
 //    }
 
-    @GetMapping("/{teacherId}/{courseId}/{classId}/printClass")
-    public List<String> printclass(@PathVariable String classId,@PathVariable String courseId,@PathVariable Integer teacherId)
+    @GetMapping("/{teacherId}/printClass")
+    public List<String> printclass(@RequestParam String classId,@RequestParam String courseId,@PathVariable Integer teacherId)
     {
         return teacherService.printListStudent(classId,courseId,teacherId);
     }
 
-    @PutMapping("/{teacherId}/{courseId}/updateCourse")
-    public void updateCourse(@PathVariable Integer teacherId,@PathVariable String courseId,@RequestParam String Book){
+    @PutMapping("/{teacherId}/updateCourse")
+    public void updateCourse(@PathVariable Integer teacherId,@RequestParam String courseId,@RequestParam String Book){
         teacherService.UpdateCourse(teacherId,courseId,Book);
     }
 
 
     // testing delete teacher
 
-    @PutMapping("/{id}/{classId}/teacherRegister")
-    public void teacherRegister(@PathVariable Integer id,@PathVariable String classId){
+    @PutMapping("/{id}/teacherRegister")
+    public void teacherRegister(@PathVariable Integer id,@RequestParam String classId){
         teacherService.teacherCourseRegister(id, classId);
     }
 

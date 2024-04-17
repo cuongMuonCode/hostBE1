@@ -44,6 +44,8 @@ public class AdminService {
     private TKBRepository TKBRepository;
     @Autowired
     private courseRepository courseRepository;
+    @Autowired
+    private AdminRepository AdminRepository;
 
     public List<classRoom> all(){
         return classRoomRepository.findAll();
@@ -94,14 +96,27 @@ public class AdminService {
         TKB time = new TKB(informationId,new ArrayList<>(),new ArrayList<>());
         for(int i=0;i<7;i++){time.getCa1().add("null");time.getCa2().add("null");}
 
+        //support ham newsemester() (student)
+        Admin ad= AdminRepository.findAdminByAdminId(0);
+        ad.getStudentList().add(informationId);
+        //delete old admin
+        AdminRepository.deleteAdminByAdminId(0);
+        //add to repo
+        AdminRepository.save(ad);
+
+        //save vo database
         loginRepository.save(newLogin);
         learningRepository.save(newlP);
         informationRepository.save(in4);
         TKBRepository.save(time);
 
     }
-    public boolean newsemester(){
-        return true;
+    public void newsemester(Integer id){
+        Admin tmp= AdminRepository.findAdminByAdminId(0);
+        //delete all classRoom
+
+        //reset tkb ve null for (chay het lisst stu cua ad)
+
     }
     public void createTeacher(Integer informationId, String name, String email, String falcuty,  String password){
         information in4= new information(informationId,name,email,falcuty);
@@ -110,6 +125,15 @@ public class AdminService {
         TKB time = new TKB(informationId,new ArrayList<>(),new ArrayList<>());
         for(int i=0;i<7;i++){time.getCa1().add("null");time.getCa2().add("null");}
 
+        //support ham newsemester() (teacher)
+        Admin ad= AdminRepository.findAdminByAdminId(0);
+        ad.getTeacherList().add(informationId);
+        //delete old admin
+        AdminRepository.deleteAdminByAdminId(0);
+        //add to repo
+        AdminRepository.save(ad);
+
+        //save vo database
         loginRepository.save(newLogin);
         teacherRepository.save(newTeacher);
         informationRepository.save(in4);
@@ -126,7 +150,4 @@ public class AdminService {
             classRoomRepository.save(tmp);
         }
     }
-
-
-
 }

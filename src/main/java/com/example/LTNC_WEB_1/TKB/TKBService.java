@@ -6,6 +6,9 @@ import com.example.LTNC_WEB_1.classRoom.classRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class TKBService {
     @Autowired
@@ -14,8 +17,21 @@ public class TKBService {
     @Autowired
     classRoomRepository classRoomRepository;
 
+
     public TKB getTKB(Integer id){
         return TKBRepository.findTKBByPersonId(id);
+    }
+    public List <classRoom> returnclassRoomCa1(Integer id){
+        List<classRoom> temp=new ArrayList<>();
+        TKB time=TKBRepository.findTKBByPersonId(id);
+        for(int i=0;i<7;i++){temp.add(classRoomRepository.findClassRoomByClassId(time.getCa1().get(i))); }
+        return temp;
+    }
+    public List <classRoom> returnclassRoomCa2(Integer id){
+        List<classRoom> temp=new ArrayList<>();
+        TKB time=TKBRepository.findTKBByPersonId(id);
+        for(int i=0;i<7;i++){temp.add(classRoomRepository.findClassRoomByClassId(time.getCa2().get(i))); }
+        return temp;
     }
 //    public void updateTKB (String classId,Integer id){
 //        classRoom tmp=classRoomRepository.findClassRoomByClassId(classId);

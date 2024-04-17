@@ -24,10 +24,15 @@ public class studentController {
     private TKBService tkbService;
 
 
-    @GetMapping("/{studentId}/tkb")
-    public TKB gettkb(@PathVariable Integer studentId ) {
-        return tkbService.getTKB(studentId);
+    @GetMapping("/{studentId}/tkb1")
+    public List<classRoom> gettkb1(@PathVariable Integer studentId ) {
+        return tkbService.returnclassRoomCa1(studentId);
     }
+    @GetMapping("/studentId/tkb2")
+    public List<classRoom>gettkb2(@PathVariable Integer studentId){
+        return tkbService.returnclassRoomCa2(studentId);
+    }
+
     @GetMapping("/{studentId}")
     public information getStudent(@PathVariable Integer studentId){
         return informationService.getInformationById(studentId);
@@ -47,10 +52,6 @@ public class studentController {
     public classRoom Register(@RequestParam String classId,@PathVariable Integer id) {
        return studentService.courseRegister(classId, id);
     }
-
-
-
-
 
     @GetMapping("/getFullClass")
     public List<classRoom> getALlClassRoom(){
