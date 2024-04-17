@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface classRoomRepository extends MongoRepository<classRoom,String> {
     public classRoom findClassRoomByClassIdAndCourseId(String classId,String courseId);
     public void deleteClassRoomByClassId(String classId);
-    public void deleteAllClassRoom();
+   // public void deleteAllClassRoom();
     public classRoom findClassRoomByClassId(String classId);
 }
