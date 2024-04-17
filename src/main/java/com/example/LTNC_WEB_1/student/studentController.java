@@ -2,6 +2,7 @@ package com.example.LTNC_WEB_1.student;
 
 import com.example.LTNC_WEB_1.TKB.TKB;
 import com.example.LTNC_WEB_1.TKB.TKBService;
+import com.example.LTNC_WEB_1.classRoom.classRoom;
 import com.example.LTNC_WEB_1.information.information;
 import com.example.LTNC_WEB_1.information.informationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ public class studentController {
     public void Register(@PathVariable String classId,@PathVariable Integer id){
         studentService.courseRegister(classId,id);
     }
+
+    @GetMapping("/getFullClass")
+    public List<classRoom> getALlClassRoom(){
+        return studentService.showAllClass();
+    }
+
 
 
 }

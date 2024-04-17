@@ -141,4 +141,9 @@ public class studentService {
     }
 
 
+    public List<classRoom>showAllClass(){
+        return classRoomRepository.findAll();
+    }
+
+
 }
