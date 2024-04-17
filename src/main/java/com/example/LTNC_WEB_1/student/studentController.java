@@ -41,8 +41,8 @@ public class studentController {
         return studentService.showALlGPA(studentId);
     }
 
-    @PutMapping("/{classId}/{id}/courseRegister")
-    public void Register(@PathVariable String classId,@PathVariable Integer id){
+    @PutMapping("/{id}/courseRegister")
+    public void Register(@RequestParam String classId,@PathVariable Integer id){
         studentService.courseRegister(classId,id);
     }
 
