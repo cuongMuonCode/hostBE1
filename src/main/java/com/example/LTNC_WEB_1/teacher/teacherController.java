@@ -35,18 +35,26 @@ public class teacherController {
         return courseService.getCourseById(courseId);
     }*/
 
-    @PutMapping("/{courseId}/{classId}/{studentId}/{teacherId}/{mark}/setmark")
-    public void setMark(@PathVariable String courseId,@PathVariable String classId,@PathVariable Integer studentId,@PathVariable Integer teacherId,@PathVariable Double mark){
-//        athV
+    @PutMapping("/{teacherId}/{courseId}/{classId}/{studentId}/setMark")
+    public void setMark(@PathVariable String courseId,@PathVariable String classId,@PathVariable Integer studentId
+                        ,@PathVariable Integer teacherId,@RequestParam Double mark){
         teacherService.SetMark(courseId,classId,studentId,teacherId,mark);
-
     }
-    @GetMapping("/{classId}/{courseId}/{teacherId}/printclass")
-    public List<Integer> printclass(@PathVariable String classId,@PathVariable String courseId,@PathVariable Integer teacherId)
-    {return teacherService.PrintStudent(classId,courseId,teacherId);}
+    // viet lai print class ra ten cua cac hoc sinh
+//    @GetMapping("/{teacherId}/{courseId}/{classId}/printClass")
+//    public List<Integer> printclass(@PathVariable String classId,@PathVariable String courseId,@PathVariable Integer teacherId)
+//    {
+//        return teacherService.PrintStudent(classId,courseId,teacherId);
+//    }
 
-    @PutMapping("/{teacherId}/{courseId}/{Book}/updateCourse")
-    public void updateCourse(@PathVariable Integer teacherId,@PathVariable String courseId,@PathVariable String Book){
+    @GetMapping("/{teacherId}/{courseId}/{classId}/printClass")
+    public List<String> printclass(@PathVariable String classId,@PathVariable String courseId,@PathVariable Integer teacherId)
+    {
+        return teacherService.printListStudent(classId,courseId,teacherId);
+    }
+
+    @PutMapping("/{teacherId}/{courseId}/updateCourse")
+    public void updateCourse(@PathVariable Integer teacherId,@PathVariable String courseId,@RequestParam String Book){
         teacherService.UpdateCourse(teacherId,courseId,Book);
     }
 

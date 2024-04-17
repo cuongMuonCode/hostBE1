@@ -17,6 +17,7 @@ import com.example.LTNC_WEB_1.course.courseRepository;
 import com.example.LTNC_WEB_1.TKB.TKB;
 import com.example.LTNC_WEB_1.classRoom.classRoomRepository;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -157,4 +158,18 @@ private learningRepository learningRepository;
 
         }
     }
+
+    public List<String>printListStudent( String ClassId,String courseId,Integer teacherId){
+        List<Integer> listId= PrintStudent(ClassId,courseId,teacherId);
+        List<String>result = new ArrayList<>();
+        for(int i=0;i<listId.size();i++) {
+            String name = studentService.getStudentById(listId.get(i)).getIn4().getName();
+            result.add(name);
+        }
+        return result;
+    }
+
+
+
+
 }
