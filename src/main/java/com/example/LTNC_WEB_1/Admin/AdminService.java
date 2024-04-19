@@ -52,6 +52,10 @@ public class AdminService {
     }
     //xoa hoc sinh
     public information deleteStudent(Integer studentId){
+        if (informationRepository.findInformationByInformationId(studentId)==null){
+            return null;
+        };
+
         loginRepository.deleteLoginByYourId(studentId);
         learningRepository.deleteLearningProgressByStudentId(studentId);
         TKBRepository.deleteTKBByPersonId(studentId);
@@ -59,6 +63,10 @@ public class AdminService {
     }
     //xoa giao vien
     public information deleteTeacher(Integer Id){
+        if (informationRepository.findInformationByInformationId(Id)==null){
+            return null;
+        };
+
         loginRepository.deleteLoginByYourId(Id);
         teacherRepository.deleteTeacherByInformation(Id);
         TKBRepository.deleteTKBByPersonId(Id);
@@ -74,18 +82,21 @@ public class AdminService {
     }
 
     public classRoom createClassRoom(String classId,String courseId,Integer day, Integer shift){
-        if(classRoomRepository.findClassRoomByClassIdAndCourseId(classId,courseId)!=null) {
+        if(classRoomRepository.findClassRoomByClassId(classId)!=null) {
             // thong bao ton tai lop hoc nay
             System.out.println("da ton tai lop hoc nay");
             return null ;
         }
         classRoom newClass = new classRoom(classId,courseId,new ArrayList<>(),day, shift,50,false);
         //add teacher vo khoa hoc
-        /*
 
-
-        */
         course tempcourse=courseRepository.findCourseByCourseId(courseId);
+
+        if (tempcourse==null) {
+            System.out.println("Khong ton tai khoa hoc");
+            return null ;
+        }
+
         tempcourse.getListClass().addLast(classId);
         courseRepository.deleteCourseByCourseId(courseId);
         courseRepository.save(tempcourse);
@@ -94,6 +105,11 @@ public class AdminService {
     }
     //them hoc sinh moi
     public void createStudent(Integer informationId, String name, String email, String falcuty, String password){
+        if (informationRepository.findInformationByInformationId(informationId)!=null){
+            System.out.println("da ton tai Hoc Sinh nay");
+            return;
+        }
+
         information in4= new information(informationId,name,email,falcuty);
         login newLogin= new login(informationId,password,1);
         learningProgress newlP= new learningProgress(informationId,new ArrayList<>(),new ArrayList<>());
@@ -123,6 +139,11 @@ public class AdminService {
 
     }
     public void createTeacher(Integer informationId, String name, String email, String falcuty,  String password){
+        if (informationRepository.findInformationByInformationId(informationId)!=null){
+            System.out.println("da ton tai Giang Vien nay");
+            return;
+        }
+
         information in4= new information(informationId,name,email,falcuty);
         login newLogin= new login(informationId,password,2);
         teacher newTeacher=new teacher(informationId,new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),newLogin);

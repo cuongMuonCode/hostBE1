@@ -1,6 +1,7 @@
 package com.example.LTNC_WEB_1.teacher;
 import com.example.LTNC_WEB_1.TKB.TKBService;
 import com.example.LTNC_WEB_1.classRoom.classRoom;
+import com.example.LTNC_WEB_1.classRoom.classRoomService;
 import com.example.LTNC_WEB_1.information.information;
 import com.example.LTNC_WEB_1.information.informationService;
 import com.example.LTNC_WEB_1.teacher.teacher;
@@ -10,6 +11,8 @@ import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.web.bind.annotation.*;
 import com.example.LTNC_WEB_1.course.course;
 import com.example.LTNC_WEB_1.course.courseService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,6 +23,9 @@ public class teacherController {
     private teacherService teacherService;
     @Autowired
     private informationService informationService;
+
+    @Autowired
+    private classRoomService classroomService;
 
     @Autowired
     private TKBService tKBService;
@@ -75,8 +81,8 @@ public class teacherController {
         return teacherService.printListStudent(classId,courseId,teacherId);
     }
 
-    @PutMapping("/{teacherId}/{courseId}/updateCourse")
-    public void updateCourse(@PathVariable Integer teacherId,@PathVariable String courseId,@RequestParam String Book){
+    @PutMapping("/{teacherId}/updateCourse")
+    public void updateCourse(@PathVariable Integer teacherId,@RequestParam String courseId,@RequestParam String Book){
         teacherService.UpdateCourse(teacherId,courseId,Book);
     }
 
@@ -86,6 +92,31 @@ public class teacherController {
     @PutMapping("/{id}/teacherRegister")
     public void teacherRegister(@PathVariable Integer id,@RequestParam String classId){
         teacherService.teacherCourseRegister(id, classId);
+    }
+
+
+    @GetMapping("/{teacherId}/getAllClassRoom")
+    public List<classRoom>getAllCourse( @PathVariable Integer teacherId){
+
+        List<classRoom> res = new ArrayList<classRoom>();
+        List<String> allClassId = teacherService.getTeacherById(teacherId).getIdClass();
+        for(int i=0;i<allClassId.size();i++){
+            res.add(classroomService.getClass(allClassId.get(i)));
+        }
+        return res;
+    }
+
+
+
+    @GetMapping("/{teacherId}/{classId}/getAllStudent")
+    public List<information> ListStudent(@PathVariable Integer teacherId,
+                                         @PathVariable String classId){
+        List<information>res= new ArrayList<information>();
+        List<Integer> temp= classroomService.getClass(classId).getStudentList();
+        for(int i=0;i<temp.size();i++){
+            res.add(informationService.getInformationById(temp.get(i)));
+        }
+        return res;
     }
 
 
