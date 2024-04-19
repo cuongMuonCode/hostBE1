@@ -24,12 +24,22 @@ public class TKBService {
     public List <classRoom> returnclassRoomCa1(Integer id){
         List<classRoom> temp=new ArrayList<>();
         TKB time=TKBRepository.findTKBByPersonId(id);
+
+        if (time==null){
+            return null;
+        }
+
         for(int i=0;i<7;i++){temp.add(classRoomRepository.findClassRoomByClassId(time.getCa1().get(i))); }
         return temp;
     }
     public List <classRoom> returnclassRoomCa2(Integer id){
         List<classRoom> temp=new ArrayList<>();
         TKB time=TKBRepository.findTKBByPersonId(id);
+
+        if (time==null){
+            return null;
+        }
+
         for(int i=0;i<7;i++){temp.add(classRoomRepository.findClassRoomByClassId(time.getCa2().get(i))); }
         return temp;
     }

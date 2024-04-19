@@ -51,31 +51,58 @@ private learningRepository learningRepository;
 
     public void SetMark(String courseId,String classId,Integer studentId,Integer teacherId,Double mark){
        classRoom temp=  classRoomService.getClassAndCourseId(courseId,classId);
+
+       if (temp==null){
+           return;
+       }
+
        teacher tempTeacher=teacherRepository.findTeacherByInformation(teacherId);
+
+       if (tempTeacher==null){
+           return;
+       }
+
        if(mark>10)return;
        boolean stu_in_class=false;
        boolean tea_in_class=false;
        for(int i=0;i<temp.getStudentList().size();i++){
-           if(temp.getStudentList().get(i)==studentId){stu_in_class=true;break;}
+           if(temp.getStudentList().get(i)==studentId){
+               stu_in_class=true;
+               break;
+           }
        }
         for(int i=0;i<tempTeacher.getIdClass().size();i++){
-            if(tempTeacher.getIdCourse().get(i).equals(courseId)&& tempTeacher.getIdClass().get(i).equals(classId)){tea_in_class=true;break;}
+            if(tempTeacher.getIdCourse().get(i).equals(courseId)&& tempTeacher.getIdClass().get(i).equals(classId)){
+                tea_in_class=true;
+                break;
+            }
         }
         if(!(stu_in_class&&tea_in_class))return;
-       student stu=studentService.getStudentById(studentId);int a=-1;
-       for(int i=0;;i++){if(stu.getProgress().getCourseId().get(i).equals(courseId)){a=i;break;}}
+       student stu=studentService.getStudentById(studentId);
+       int a=-1;
+       for(int i=0;;i++){
+           if(stu.getProgress().getCourseId().get(i).equals(courseId)){
+               a=i;
+               break;
+           }
+       }
+
        if(a==-1){
-           System.out.println("khong tim ra mon nay");
-       return;}
+            //System.out.println("khong tim ra mon nay");
+            System.out.println("Khong ton tai mon hoc");;
+            return;
+       }
        double realmark=stu.getProgress().getCourseGpa().get(a);
-       while(realmark>100)realmark-=100;
-       if(mark<realmark&&realmark!=11) {  stu.getProgress().getCourseGpa().set(a,realmark);
-        learningProgress tem2=stu.getProgress();
-        learningRepository.deleteLearningProgressByStudentId(studentId);
-           learningRepository.save(tem2);return;}
+       while(realmark>100)  realmark-=100;
+       if(mark<realmark&&realmark!=11) {
+           stu.getProgress().getCourseGpa().set(a,realmark);
+            learningProgress tem2=stu.getProgress();
+            learningRepository.deleteLearningProgressByStudentId(studentId);
+           learningRepository.save(tem2);return;
+       }
        stu.getProgress().getCourseGpa().set(a,mark);
         learningProgress tem2=stu.getProgress();
-    learningRepository.deleteLearningProgressByStudentId(studentId);
+        learningRepository.deleteLearningProgressByStudentId(studentId);
         learningRepository.save(tem2);
 
 
@@ -85,19 +112,29 @@ private learningRepository learningRepository;
     }*/
     public List<Integer> PrintStudent(String ClassId,String courseId,Integer teacherId){
      teacher tempTeacher=teacherRepository.findTeacherByInformation(teacherId);
+     if (tempTeacher==null){
+         return null;
+     }
      boolean tea_in_class=false;
         for(int i=0;i<tempTeacher.getIdClass().size();i++){
             if(tempTeacher.getIdCourse().get(i).equals(courseId)&& tempTeacher.getIdClass().get(i).equals(ClassId)){tea_in_class=true;break;}
         }
         if(!tea_in_class)return null;
         classRoom temp=classRoomService.getClassAndCourseId(courseId,ClassId);
+        if(temp==null){
+            return null;
+        }
        /* for(int i=0;i<temp.getStudentList().size();i++){
             System.out.println(temp.getStudentList().get(i));
-        }*/return temp.getStudentList();
+        }*/
+        return temp.getStudentList();
 
     }
     public void UpdateCourse(Integer teacherId, String courseId,String Book){
         teacher tempTeacher=teacherRepository.findTeacherByInformation(teacherId);
+        if(tempTeacher==null){
+            return;
+        }
         boolean tea_in_class=false;
         for(int i=0;i<tempTeacher.getIdClass().size();i++){
             if(tempTeacher.getIdCourse().get(i).equals(courseId)){tea_in_class=true;break;}
@@ -117,15 +154,26 @@ private learningRepository learningRepository;
         }*/
       course  tmp1=courseService.getCourseById(courseId);
 
+      if(tmp1==null){
+          return;
+      }
+
         courseRepository.deleteCourseByCourseId(courseId);
         tmp1.setRefBook(Book);
          courseRepository.save(tmp1);
     }
     public void teacherCourseRegister(Integer id,String classId){
         classRoom Class=classRoomService.getClass(classId);
+
+        if(Class==null){
+            return;
+        }
+
         teacher temp=teacherRepository.findTeacherByInformation(id);
         TKB time= TKBRepository.findTKBByPersonId(id);
+
         if(temp==null||Class.getHaveTeacher())return;
+
         for(int i=0;i<temp.getDiploma().size();i++){
             if(temp.getDiploma().get(i).equals(Class.getCourseId())){
                 if(time.getCa1().get(Class.getDay()-1).equals("null")&&Class.getShift()==1){

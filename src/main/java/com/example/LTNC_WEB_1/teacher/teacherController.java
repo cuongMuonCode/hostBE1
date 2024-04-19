@@ -74,12 +74,6 @@ public class teacherController {
 //        return teacherService.PrintStudent(classId,courseId,teacherId);
 //    }
 
-    @GetMapping("/{teacherId}" +
-            "/printClass")
-    public List<String> printclass(@RequestParam String classId,@RequestParam String courseId,@PathVariable Integer teacherId)
-    {
-        return teacherService.printListStudent(classId,courseId,teacherId);
-    }
 
     @PutMapping("/{teacherId}/updateCourse")
     public void updateCourse(@PathVariable Integer teacherId,@RequestParam String courseId,@RequestParam String Book){
