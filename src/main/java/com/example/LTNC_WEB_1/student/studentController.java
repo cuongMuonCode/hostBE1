@@ -28,7 +28,7 @@ public class studentController {
     public List<classRoom> gettkb1(@PathVariable Integer studentId ) {
         return tkbService.returnclassRoomCa1(studentId);
     }
-    @GetMapping("/studentId/tkb2")
+    @GetMapping("/{studentId}/tkb2")
     public List<classRoom>gettkb2(@PathVariable Integer studentId){
         return tkbService.returnclassRoomCa2(studentId);
     }

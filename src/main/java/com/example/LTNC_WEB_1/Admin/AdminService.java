@@ -81,6 +81,10 @@ public class AdminService {
         }
         classRoom newClass = new classRoom(classId,courseId,new ArrayList<>(),day, shift,50,false);
         //add teacher vo khoa hoc
+        /*
+
+
+        */
         course tempcourse=courseRepository.findCourseByCourseId(courseId);
         tempcourse.getListClass().addLast(classId);
         courseRepository.deleteCourseByCourseId(courseId);
@@ -96,13 +100,13 @@ public class AdminService {
         TKB time = new TKB(informationId,new ArrayList<>(),new ArrayList<>());
         for(int i=0;i<7;i++){time.getCa1().add("null");time.getCa2().add("null");}
 
-        //support ham newsemester() (student)
-        Admin ad= AdminRepository.findAdminByAdminId(0);
-        ad.getStudentList().add(informationId);
-        //delete old admin
-        AdminRepository.deleteAdminByAdminId(0);
-        //add to repo
-        AdminRepository.save(ad);
+//        //support ham newsemester() (student)
+//        Admin ad= AdminRepository.findAdminByAdminId(0);
+//        ad.getStudentList().add(informationId);
+//        //delete old admin
+//        AdminRepository.deleteAdminByAdminId(0);
+//        //add to repo
+//        AdminRepository.save(ad);
 
         //save vo database
         loginRepository.save(newLogin);
@@ -125,13 +129,13 @@ public class AdminService {
         TKB time = new TKB(informationId,new ArrayList<>(),new ArrayList<>());
         for(int i=0;i<7;i++){time.getCa1().add("null");time.getCa2().add("null");}
 
-        //support ham newsemester() (teacher)
-        Admin ad= AdminRepository.findAdminByAdminId(0);
-        ad.getTeacherList().add(informationId);
-        //delete old admin
-        AdminRepository.deleteAdminByAdminId(0);
-        //add to repo
-        AdminRepository.save(ad);
+//        //support ham newsemester() (teacher)
+//        Admin ad= AdminRepository.findAdminByAdminId(0);
+//        ad.getTeacherList().add(informationId);
+//        //delete old admin
+//        AdminRepository.deleteAdminByAdminId(0);
+//        //add to repo
+//        AdminRepository.save(ad);
 
         //save vo database
         loginRepository.save(newLogin);

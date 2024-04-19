@@ -64,7 +64,8 @@ private learningRepository learningRepository;
         if(!(stu_in_class&&tea_in_class))return;
        student stu=studentService.getStudentById(studentId);int a=-1;
        for(int i=0;;i++){if(stu.getProgress().getCourseId().get(i).equals(courseId)){a=i;break;}}
-       if(a==-1){System.out.println("khong tim ra mon nay");
+       if(a==-1){
+           System.out.println("khong tim ra mon nay");
        return;}
        double realmark=stu.getProgress().getCourseGpa().get(a);
        while(realmark>100)realmark-=100;

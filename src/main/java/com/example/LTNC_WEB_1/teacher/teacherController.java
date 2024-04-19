@@ -1,4 +1,8 @@
 package com.example.LTNC_WEB_1.teacher;
+import com.example.LTNC_WEB_1.TKB.TKBService;
+import com.example.LTNC_WEB_1.classRoom.classRoom;
+import com.example.LTNC_WEB_1.information.information;
+import com.example.LTNC_WEB_1.information.informationService;
 import com.example.LTNC_WEB_1.teacher.teacher;
 import com.example.LTNC_WEB_1.teacher.teacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +14,36 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teacher")
+@CrossOrigin(origins = "*")
 public class teacherController {
     @Autowired
     private teacherService teacherService;
+    @Autowired
+    private informationService informationService;
 
-    @GetMapping("/{teacherId}/getTeacher")
-    public teacher getTeacher(@PathVariable Integer teacherId){
-        return  teacherService.getTeacherById(teacherId);
+    @Autowired
+    private TKBService tKBService;
+
+    @GetMapping("/{teacherId}")
+    public information getTeacher(@PathVariable Integer teacherId){
+        return  informationService.getInformationById(teacherId) ;
     }
+
+
+    @GetMapping("/{teacherId}/tkb1")
+    public List<classRoom> gettkb1(@PathVariable Integer teacherId ) {
+        return tKBService.returnclassRoomCa1(teacherId);
+    }
+    @GetMapping("/{teacherId}/tkb2")
+    public List<classRoom>gettkb2(@PathVariable Integer teacherId){
+
+        return tKBService.returnclassRoomCa2(teacherId);
+    }
+
+
+
+
+
    /* @GetMapping("/{classId}/printstudent")
     public void PrintStudent(@PathVariable String classId){
          teacherService.PrintStudent(classId);
@@ -32,7 +58,7 @@ public class teacherController {
 
     @PutMapping("/{teacherId}/setMark")
     public void setMark(@RequestParam String courseId,@RequestParam String classId,@RequestParam Integer studentId
-                        ,@PathVariable Integer teacherId,@RequestParam Double mark){
+                        ,@RequestParam Double mark,@PathVariable Integer teacherId){
         teacherService.SetMark(courseId,classId,studentId,teacherId,mark);
     }
     // viet lai print class ra ten cua cac hoc sinh
@@ -42,14 +68,15 @@ public class teacherController {
 //        return teacherService.PrintStudent(classId,courseId,teacherId);
 //    }
 
-    @GetMapping("/{teacherId}/printClass")
+    @GetMapping("/{teacherId}" +
+            "/printClass")
     public List<String> printclass(@RequestParam String classId,@RequestParam String courseId,@PathVariable Integer teacherId)
     {
         return teacherService.printListStudent(classId,courseId,teacherId);
     }
 
-    @PutMapping("/{teacherId}/updateCourse")
-    public void updateCourse(@PathVariable Integer teacherId,@RequestParam String courseId,@RequestParam String Book){
+    @PutMapping("/{teacherId}/{courseId}/updateCourse")
+    public void updateCourse(@PathVariable Integer teacherId,@PathVariable String courseId,@RequestParam String Book){
         teacherService.UpdateCourse(teacherId,courseId,Book);
     }
 

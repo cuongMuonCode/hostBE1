@@ -118,8 +118,9 @@ public class AdminController {
         //  System.out.println("vo day");
         return AdminService.createClassRoom(classId,courseId,day,shift);
     }
-    @GetMapping("/{courseId}/{classId}/{day}/{shirt}/newclass")
-    public classRoom dhd(@PathVariable String courseId,@PathVariable String classId,@PathVariable Integer day,@PathVariable Integer shirt){
+    @GetMapping("/newclass")
+    public classRoom dhd(@RequestParam String courseId,@RequestParam String classId,
+                         @RequestParam Integer day,@RequestParam Integer shirt){
         return AdminService.createClassRoom(classId,courseId,day,shirt);
     }
     //them hoc sinh vao lop hoc
