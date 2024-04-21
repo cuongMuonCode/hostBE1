@@ -133,7 +133,7 @@ public class studentService {
         }
         if(firsttime){
             tmp.getCourseId().add(temp.getCourseId());
-            tmp.getCourseGpa().add(11.0);//diem 11 hoc lan dau hoac chua qua mon, chua co diem
+            tmp.getCourseGpa().add(111.0);//diem 11 hoc lan dau hoac chua qua mon, chua co diem
             //add mon moi
             learningRepository.deleteLearningProgressByStudentId(id);
             learningRepository.save(tmp);

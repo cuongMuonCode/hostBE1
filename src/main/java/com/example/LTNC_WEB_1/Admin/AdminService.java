@@ -89,7 +89,6 @@ public class AdminService {
         }
         classRoom newClass = new classRoom(classId,courseId,new ArrayList<>(),day, shift,50,false);
         //add teacher vo khoa hoc
-
         course tempcourse=courseRepository.findCourseByCourseId(courseId);
 
         if (tempcourse==null) {
