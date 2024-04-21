@@ -180,6 +180,7 @@ public class AdminService {
     public teacher addDiploma(String newDiploma,Integer Id){
         teacher tempTeach=teacherRepository.findTeacherByInformation(Id);
         if(tempTeach==null) return null;
+        for(int i=0;i<tempTeach.getDiploma().size();i++){if(tempTeach.getDiploma().get(i).equals(newDiploma))return tempTeach;}
         tempTeach.getDiploma().add(newDiploma);
         teacherRepository.deleteTeacherByInformation(Id);
         return teacherRepository.save(tempTeach);
