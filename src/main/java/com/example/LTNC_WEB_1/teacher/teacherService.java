@@ -162,17 +162,17 @@ private learningRepository learningRepository;
         tmp1.setRefBook(Book);
          courseRepository.save(tmp1);
     }
-    public void teacherCourseRegister(Integer id,String classId){
+    public classRoom teacherCourseRegister(Integer id,String classId){
         classRoom Class=classRoomService.getClass(classId);
 
         if(Class==null){
-            return;
+            return null;
         }
 
         teacher temp=teacherRepository.findTeacherByInformation(id);
         TKB time= TKBRepository.findTKBByPersonId(id);
 
-        if(temp==null||Class.getHaveTeacher())return;
+        if(temp==null||Class.getHaveTeacher())return null;
 
         for(int i=0;i<temp.getDiploma().size();i++){
             if(temp.getDiploma().get(i).equals(Class.getCourseId())){
@@ -205,7 +205,7 @@ private learningRepository learningRepository;
                 }break;
             }
 
-        }
+        } return Class;
     }
 
     public List<String>printListStudent( String ClassId,String courseId,Integer teacherId){

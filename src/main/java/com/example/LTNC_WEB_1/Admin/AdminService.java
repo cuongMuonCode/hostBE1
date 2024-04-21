@@ -175,4 +175,14 @@ public class AdminService {
             classRoomRepository.save(tmp);
         }
     }
+    public List<course> allcourse(){return courseRepository.findAll();}
+
+    public teacher addDiploma(String newDiploma,Integer Id){
+        teacher tempTeach=teacherRepository.findTeacherByInformation(Id);
+        if(tempTeach==null) return null;
+        tempTeach.getDiploma().add(newDiploma);
+        teacherRepository.deleteTeacherByInformation(Id);
+        return teacherRepository.save(tempTeach);
+
+    }
 }

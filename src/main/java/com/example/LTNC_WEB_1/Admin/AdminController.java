@@ -2,6 +2,7 @@ package com.example.LTNC_WEB_1.Admin;
 
 import com.example.LTNC_WEB_1.classRoom.classRoom;
 import com.example.LTNC_WEB_1.classRoom.classRoomService;
+import com.example.LTNC_WEB_1.course.course;
 import com.example.LTNC_WEB_1.information.information;
 import com.example.LTNC_WEB_1.information.informationRepository;
 import com.example.LTNC_WEB_1.information.informationService;
@@ -122,6 +123,12 @@ public class AdminController {
     public classRoom dhd(@RequestParam String courseId,@RequestParam String classId,
                          @RequestParam Integer day,@RequestParam Integer shirt){
         return AdminService.createClassRoom(classId,courseId,day,shirt);
+    }
+    @GetMapping("/allCourse")
+    public List<course> PrintCourse()   {   return AdminService.allcourse();}
+    @PutMapping("/addDiploma")
+    public teacher addDiploma(@RequestParam String diploma,@RequestParam Integer teacherId){
+        return AdminService.addDiploma(diploma,teacherId);
     }
     //them hoc sinh vao lop hoc
 //    @DeleteMapping("/deleted")

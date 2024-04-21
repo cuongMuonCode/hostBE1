@@ -84,8 +84,8 @@ public class teacherController {
     // testing delete teacher
 
     @PutMapping("/{id}/teacherRegister")
-    public void teacherRegister(@PathVariable Integer id,@RequestParam String classId){
-        teacherService.teacherCourseRegister(id, classId);
+    public classRoom teacherRegister(@PathVariable Integer id,@RequestParam String classId){
+       return teacherService.teacherCourseRegister(id, classId);
     }
 
 
