@@ -105,6 +105,14 @@ public class studentService {
             System.out.println("Lop da du si so");
             return null;
         }
+        for(int i=0;i<7;i++){
+            classRoom ca1=classRoomRepository.findClassRoomByClassId(time.getCa1().get(i));
+            classRoom ca2=classRoomRepository.findClassRoomByClassId(time.getCa2().get(i));
+        if(ca1==null&&ca2==null)
+            continue;
+            if(ca1!=null&&ca1.getCourseId().equals(temp.getCourseId()))return null;
+            if(ca2!=null&&ca2.getCourseId().equals(temp.getCourseId()))return null;
+        }
         boolean firsttime=true;
         //bien bool
         for(int i=0;i<learningRepository.findLearningProgressByStudentId(id).getCourseGpa().size();i++){

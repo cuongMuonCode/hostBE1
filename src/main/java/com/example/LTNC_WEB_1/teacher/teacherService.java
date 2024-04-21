@@ -104,6 +104,10 @@ private learningRepository learningRepository;
         learningProgress tem2=stu.getProgress();
         learningRepository.deleteLearningProgressByStudentId(studentId);
         learningRepository.save(tem2);
+        /*temp.getStudentList().remove(studentId);
+        classRoomRepository.deleteClassRoomByClassId(classId);
+        classRoomRepository.save(temp);*/
+
 
 
     }
