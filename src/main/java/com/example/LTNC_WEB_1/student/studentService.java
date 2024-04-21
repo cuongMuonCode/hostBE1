@@ -123,6 +123,7 @@ public class studentService {
                     System.out.println("Mon nay dang hoc");
                     return null;
                 }
+            }
                 //trung lich hoc return
                 if(!(time.getCa1().get(temp.getDay()-1).equals("null"))&&temp.getShift()==1){
                     System.out.println("Trung lichhh");
@@ -137,7 +138,6 @@ public class studentService {
                     learningRepository.deleteLearningProgressByStudentId(id);
                     learningRepository.save(tmp);
                 }
-            }
         }
         if(firsttime){
             tmp.getCourseId().add(temp.getCourseId());
