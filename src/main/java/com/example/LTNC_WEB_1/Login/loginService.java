@@ -10,9 +10,23 @@ public class loginService {
     private loginRepository loginRepository;
 
     public Boolean isExists(Integer id, String pass , Integer Role){
-        login tmp = loginRepository.findLoginByYourIdAndPassWord(id,pass);
+        String newPass=decrypt(pass);
+        login tmp = loginRepository.findLoginByYourIdAndPassWord(id,newPass);
         if(tmp!=null && tmp.getRole().equals(Role))return true;
         return false;
-
+    }
+    public String encrypt(String str){
+        String Pass="";
+        for (int i=str.length()-1;i>=0;i--){
+            Pass=Pass+str.charAt(i);
+        }
+        return Pass;
+    }
+    public String decrypt(String str){
+        String Pass="";
+        for (int i=str.length()-1;i>=0;i--){
+            Pass=Pass+str.charAt(i);
+        }
+        return Pass;
     }
 }

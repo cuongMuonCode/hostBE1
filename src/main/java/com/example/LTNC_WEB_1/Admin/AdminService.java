@@ -2,6 +2,7 @@ package com.example.LTNC_WEB_1.Admin;
 
 import com.example.LTNC_WEB_1.Login.login;
 import com.example.LTNC_WEB_1.Login.loginRepository;
+import com.example.LTNC_WEB_1.Login.loginService;
 import com.example.LTNC_WEB_1.TKB.TKB;
 import com.example.LTNC_WEB_1.TKB.TKBRepository;
 import com.example.LTNC_WEB_1.classRoom.classRoom;
@@ -46,7 +47,8 @@ public class AdminService {
     private courseRepository courseRepository;
     @Autowired
     private AdminRepository AdminRepository;
-
+    @Autowired
+    private loginService loginService;
     public List<classRoom> all(){
         return classRoomRepository.findAll();
     }
@@ -110,7 +112,9 @@ public class AdminService {
         }
 
         information in4= new information(informationId,name,email,falcuty);
-        login newLogin= new login(informationId,password,1);
+
+        String newPass=loginService.encrypt(password);
+        login newLogin= new login(informationId,newPass,1);
         learningProgress newlP= new learningProgress(informationId,new ArrayList<>(),new ArrayList<>());
         TKB time = new TKB(informationId,new ArrayList<>(),new ArrayList<>());
         for(int i=0;i<7;i++){time.getCa1().add("null");time.getCa2().add("null");}
@@ -144,7 +148,9 @@ public class AdminService {
         }
 
         information in4= new information(informationId,name,email,falcuty);
-        login newLogin= new login(informationId,password,2);
+
+        String newPass=loginService.encrypt(password);
+        login newLogin= new login(informationId,newPass,2);
         teacher newTeacher=new teacher(informationId,new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),newLogin);
         TKB time = new TKB(informationId,new ArrayList<>(),new ArrayList<>());
         for(int i=0;i<7;i++){time.getCa1().add("null");time.getCa2().add("null");}
