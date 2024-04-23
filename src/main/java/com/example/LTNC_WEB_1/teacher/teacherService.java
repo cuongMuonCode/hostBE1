@@ -66,7 +66,7 @@ private learningRepository learningRepository;
        boolean stu_in_class=false;
        boolean tea_in_class=false;
        for(int i=0;i<temp.getStudentList().size();i++){
-           if(temp.getStudentList().get(i)==studentId){
+           if(temp.getStudentList().get(i).equals(studentId)){
                stu_in_class=true;
                break;
            }
